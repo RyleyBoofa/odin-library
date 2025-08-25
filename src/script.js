@@ -11,6 +11,10 @@ const newPages = document.querySelector("#pages");
 const newRead = document.querySelector("#read");
 
 newBookBtn.addEventListener("click", () => {
+    newTitle.value = "";
+    newAuthor.value = "";
+    newPages.value = "";
+    newRead.selectedIndex = 0;
     newBookDialog.showModal();
 });
 
