@@ -1,6 +1,6 @@
 // The Odin Project - Project: Library
 
-const library = [];
+let library = [];
 const libraryContainer = document.querySelector(".lib-container");
 const newBookBtn = document.querySelector("#new-book-button");
 const newBookDialog = document.querySelector("#new-book-dialog");
@@ -89,8 +89,21 @@ function displayNewBook(book) {
     id.classList.add("book-id");
     id.innerHTML = `ID: ${book.id}`;
     bookElement.appendChild(id);
+    bookElement.setAttribute("data-id", book.id);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("book-delete-button");
+    deleteButton.innerHTML = "Delete";
+    bookElement.appendChild(deleteButton);
+    deleteButton.addEventListener("click", () => deleteBook(bookElement));
 
     libraryContainer.appendChild(bookElement);
+}
+
+function deleteBook(book) {
+    const id = book.getAttribute("data-id");
+    library = library.filter((book) => id !== book.id);
+    book.remove();
 }
 
 function displayLibrary() {
