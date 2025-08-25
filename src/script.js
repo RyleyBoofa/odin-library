@@ -1,6 +1,6 @@
 // The Odin Project - Project: Library
 
-let library = [];
+let library = []; // not const so that it can be filtered
 const libraryContainer = document.querySelector(".lib-container");
 const newBookBtn = document.querySelector("#new-book-button");
 const newBookDialog = document.querySelector("#new-book-dialog");
@@ -23,10 +23,12 @@ confirmBtn.addEventListener("click", (e) => {
         newRead.value === "yes" ? true : false
     );
     if (newBook === null) {
-        alert("Failed to add new book. Please ensure form is filled out correctly.");
+        alert(
+            "Failed to add new book, please ensure form is filled out correctly. See developer console for more info."
+        );
         return;
     }
-    displayNewBook(newBook);
+    createNewBookElement(newBook);
     newBookDialog.close();
 });
 
@@ -41,6 +43,13 @@ function Book(title, author, pages, read, id) {
     this.id = id;
 }
 
+Book.prototype.toggleRead = function () {
+    this.read = !this.read;
+    const book = document.querySelector(`[data-id="${this.id}"]`);
+    const read = book.querySelector(".book-read");
+    read.textContent = this.read ? "Read" : "Not read";
+};
+
 function addBookToLibrary(title, author, pages, read) {
     if (
         typeof title != "string" ||
@@ -50,7 +59,7 @@ function addBookToLibrary(title, author, pages, read) {
         typeof read != "boolean"
     ) {
         console.error(
-            "ERROR: Books must be added with: addBookToLibrary(title <string>, author <string>, pages <int>, read <bool>)"
+            "ERROR: Books must be added with: title <string>, author <string>, pages <int>, read <bool>"
         );
         return null;
     }
@@ -61,41 +70,47 @@ function addBookToLibrary(title, author, pages, read) {
     return book;
 }
 
-function displayNewBook(book) {
+function createNewBookElement(book) {
     const bookElement = document.createElement("div");
     bookElement.classList.add("book");
 
     const title = document.createElement("h2");
     title.classList.add("book-title");
-    title.innerHTML = `${book.title}`;
+    title.textContent = `${book.title}`;
     bookElement.appendChild(title);
 
     const author = document.createElement("p");
     author.classList.add("book-author");
-    author.innerHTML = `${book.author}`;
+    author.textContent = `${book.author}`;
     bookElement.appendChild(author);
 
     const pages = document.createElement("p");
     pages.classList.add("book-pages");
-    pages.innerHTML = `${book.pages} pages`;
+    pages.textContent = `${book.pages} pages`;
     bookElement.appendChild(pages);
 
     const read = document.createElement("p");
     read.classList.add("book-read");
-    read.innerHTML = book.read ? "Read" : "Not read";
+    read.textContent = book.read ? "Read" : "Not read";
     bookElement.appendChild(read);
 
     const id = document.createElement("p");
     id.classList.add("book-id");
-    id.innerHTML = `ID: ${book.id}`;
+    id.textContent = `ID: ${book.id}`;
     bookElement.appendChild(id);
     bookElement.setAttribute("data-id", book.id);
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("book-delete-button");
-    deleteButton.innerHTML = "Delete";
+    deleteButton.textContent = "Delete";
     bookElement.appendChild(deleteButton);
     deleteButton.addEventListener("click", () => deleteBook(bookElement));
+
+    const readButton = document.createElement("button");
+    readButton.classList.add("book-read-button");
+    readButton.textContent = "Toggle read";
+    bookElement.appendChild(readButton);
+    readButton.addEventListener("click", () => book.toggleRead());
 
     libraryContainer.appendChild(bookElement);
 }
@@ -108,7 +123,7 @@ function deleteBook(book) {
 
 function displayLibrary() {
     library.forEach((book) => {
-        displayNewBook(book);
+        createNewBookElement(book);
     });
 }
 
