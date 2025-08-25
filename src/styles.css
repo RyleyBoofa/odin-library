@@ -12,8 +12,21 @@ body {
     background-color: lightgrey;
 }
 
-h1,
-p {
+h1 {
     text-align: center;
     margin: 20px auto;
+}
+
+.lib-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 200px;
+    gap: 50px;
+    padding: 50px;
+}
+
+.book {
+    background-color: grey;
+    width: 100%;
+    height: 100%;
 }
