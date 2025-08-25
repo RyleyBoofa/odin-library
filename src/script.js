@@ -1,9 +1,9 @@
 // The Odin Project - Project: Library
 
 let library = []; // not const so that it can be filtered
-const libraryContainer = document.querySelector(".lib-container");
+const booksContainer = document.querySelector(".books-container");
 const newBookBtn = document.querySelector("#new-book-button");
-const newBookDialog = document.querySelector("#new-book-dialog");
+const newBookDialog = document.querySelector(".new-book-dialog");
 const confirmBtn = document.querySelector("#confirm");
 const newTitle = document.querySelector("#title");
 const newAuthor = document.querySelector("#author");
@@ -78,6 +78,11 @@ function createNewBookElement(book) {
     const bookElement = document.createElement("div");
     bookElement.classList.add("book");
 
+    const cover = document.createElement("div");
+    cover.classList.add("book-cover-art");
+    cover.textContent = "Cover art";
+    bookElement.appendChild(cover);
+
     const title = document.createElement("h2");
     title.classList.add("book-title");
     title.textContent = `${book.title}`;
@@ -104,19 +109,19 @@ function createNewBookElement(book) {
     bookElement.appendChild(id);
     bookElement.setAttribute("data-id", book.id);
 
-    const deleteButton = document.createElement("button");
-    deleteButton.classList.add("book-delete-button");
-    deleteButton.textContent = "Delete";
-    bookElement.appendChild(deleteButton);
-    deleteButton.addEventListener("click", () => deleteBook(bookElement));
-
     const readButton = document.createElement("button");
     readButton.classList.add("book-read-button");
-    readButton.textContent = "Toggle read";
+    readButton.textContent = "Toggle Read";
     bookElement.appendChild(readButton);
     readButton.addEventListener("click", () => book.toggleRead());
 
-    libraryContainer.appendChild(bookElement);
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("book-delete-button");
+    deleteButton.textContent = "Delete Book";
+    bookElement.appendChild(deleteButton);
+    deleteButton.addEventListener("click", () => deleteBook(bookElement));
+
+    booksContainer.appendChild(bookElement);
 }
 
 function deleteBook(book) {
