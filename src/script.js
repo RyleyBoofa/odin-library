@@ -36,7 +36,7 @@ confirmBtn.addEventListener("click", (e) => {
     newBookDialog.close();
 });
 
-function Book(title, author, pages, read, id) {
+function Book(title, author, pages, read, id, cover) {
     if (!new.target) {
         throw Error("Book constructor must be called with the 'new' keyword.");
     }
@@ -45,6 +45,7 @@ function Book(title, author, pages, read, id) {
     this.pages = pages;
     this.read = read;
     this.id = id;
+    this.cover = cover;
 }
 
 Book.prototype.toggleRead = function () {
@@ -54,7 +55,7 @@ Book.prototype.toggleRead = function () {
     read.textContent = this.read ? "Read" : "Not read";
 };
 
-function addBookToLibrary(title, author, pages, read) {
+function addBookToLibrary(title, author, pages, read, cover) {
     if (
         typeof title != "string" ||
         typeof author != "string" ||
@@ -69,7 +70,7 @@ function addBookToLibrary(title, author, pages, read) {
     }
 
     const id = crypto.randomUUID();
-    const book = new Book(title, author, pages, read, id);
+    const book = new Book(title, author, pages, read, id, cover);
     library.push(book);
     return book;
 }
@@ -80,17 +81,22 @@ function createNewBookElement(book) {
 
     const cover = document.createElement("div");
     cover.classList.add("book-cover-art");
-    cover.textContent = "Cover art";
+    if (book.cover !== undefined) {
+        const img = document.createElement("img");
+        img.setAttribute("src", book.cover);
+        img.setAttribute("alt", `${book.title} cover art`);
+        cover.appendChild(img);
+    }
     bookElement.appendChild(cover);
 
-    const title = document.createElement("h2");
+    const title = document.createElement("h3");
     title.classList.add("book-title");
     title.textContent = `${book.title}`;
     bookElement.appendChild(title);
 
     const author = document.createElement("p");
     author.classList.add("book-author");
-    author.textContent = `${book.author}`;
+    author.textContent = `by ${book.author}`;
     bookElement.appendChild(author);
 
     const pages = document.createElement("p");
@@ -136,7 +142,19 @@ function displayLibrary() {
     });
 }
 
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 320, false);
-addBookToLibrary("Harry Potter", "J.K. Rowling", 309, true);
+addBookToLibrary(
+    "The Hobbit",
+    "J.R.R. Tolkien",
+    320,
+    false,
+    "https://live.staticflickr.com/2597/4014903394_b2f4f294b7_b.jpg"
+);
+addBookToLibrary(
+    "Harry Potter",
+    "J.K. Rowling",
+    309,
+    true,
+    "https://live.staticflickr.com/3816/12008063406_431c61becc_z.jpg"
+);
 
 displayLibrary();
