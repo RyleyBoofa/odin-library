@@ -18,11 +18,11 @@
             <dialog class="new-book-dialog">
                 <form action="">
                     <div class="new-title">
-                        <label for="title">Title:</label>
+                        <label for="title">Title (required):</label>
                         <input type="text" name="title" id="title" minlength="1" maxlength="100" />
                     </div>
                     <div class="new-author">
-                        <label for="author">Author:</label>
+                        <label for="author">Author (required):</label>
                         <input
                             type="text"
                             name="author"
@@ -32,7 +32,7 @@
                         />
                     </div>
                     <div class="new-pages">
-                        <label for="pages">Page count:</label>
+                        <label for="pages">Page count (required):</label>
                         <input type="number" name="pages" id="pages" min="0" />
                     </div>
                     <div class="new-read">
@@ -41,6 +41,10 @@
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
+                    </div>
+                    <div class="new-cover">
+                        <label for="cover">Cover art URL (optional):</label>
+                        <input type="url" name="cover" id="cover" />
                     </div>
                     <div class="dialog-buttons">
                         <button value="cancel" formmethod="dialog">Cancel</button>
@@ -51,7 +55,7 @@
             <section class="library">
                 <div class="library-container">
                     <h2 class="library-heading">Your Collection</h2>
-                    <p class="book-count">2 books in your library</p>
+                    <p class="book-count">3 books in your library</p>
                     <div class="books-container"></div>
                 </div>
             </section>

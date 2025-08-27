@@ -9,12 +9,15 @@ const newTitle = document.querySelector("#title");
 const newAuthor = document.querySelector("#author");
 const newPages = document.querySelector("#pages");
 const newRead = document.querySelector("#read");
+const newCover = document.querySelector("#cover");
+const bookCount = document.querySelector(".book-count");
 
 newBookBtn.addEventListener("click", () => {
     newTitle.value = "";
     newAuthor.value = "";
     newPages.value = "";
     newRead.selectedIndex = 0;
+    newCover.value = "";
     newBookDialog.showModal();
 });
 
@@ -24,7 +27,8 @@ confirmBtn.addEventListener("click", (e) => {
         newTitle.value,
         newAuthor.value,
         Number(newPages.value),
-        newRead.value === "yes" ? true : false
+        newRead.value === "yes" ? true : false,
+        newCover.value
     );
     if (newBook === null) {
         alert(
@@ -78,6 +82,7 @@ function addBookToLibrary(title, author, pages, read, cover) {
 function createNewBookElement(book) {
     const bookElement = document.createElement("div");
     bookElement.classList.add("book");
+    bookElement.setAttribute("data-id", book.id);
 
     const cover = document.createElement("div");
     cover.classList.add("book-cover-art");
@@ -89,51 +94,61 @@ function createNewBookElement(book) {
     }
     bookElement.appendChild(cover);
 
+    const heading = document.createElement("div");
+    heading.classList.add("book-heading");
+
     const title = document.createElement("h3");
     title.classList.add("book-title");
     title.textContent = `${book.title}`;
-    bookElement.appendChild(title);
+    heading.appendChild(title);
 
     const author = document.createElement("p");
     author.classList.add("book-author");
     author.textContent = `by ${book.author}`;
-    bookElement.appendChild(author);
+    heading.appendChild(author);
 
-    const pages = document.createElement("p");
-    pages.classList.add("book-pages");
-    pages.textContent = `${book.pages} pages`;
-    bookElement.appendChild(pages);
+    const info = document.createElement("div");
+    info.classList.add("book-info");
 
     const read = document.createElement("p");
     read.classList.add("book-read");
     read.textContent = book.read ? "Read" : "Not read";
-    bookElement.appendChild(read);
+    info.appendChild(read);
 
-    const id = document.createElement("p");
-    id.classList.add("book-id");
-    id.textContent = `ID: ${book.id}`;
-    bookElement.appendChild(id);
-    bookElement.setAttribute("data-id", book.id);
+    const pages = document.createElement("p");
+    pages.classList.add("book-pages");
+    pages.textContent = `${book.pages} pages`;
+    info.appendChild(pages);
+
+    const buttons = document.createElement("div");
+    buttons.classList.add("book-buttons");
 
     const readButton = document.createElement("button");
-    readButton.classList.add("book-read-button");
+    readButton.classList.add("book-button");
     readButton.textContent = "Toggle Read";
-    bookElement.appendChild(readButton);
+    buttons.appendChild(readButton);
     readButton.addEventListener("click", () => book.toggleRead());
 
     const deleteButton = document.createElement("button");
-    deleteButton.classList.add("book-delete-button");
+    deleteButton.classList.add("book-button");
     deleteButton.textContent = "Delete Book";
-    bookElement.appendChild(deleteButton);
+    buttons.appendChild(deleteButton);
     deleteButton.addEventListener("click", () => deleteBook(bookElement));
 
+    bookElement.appendChild(heading);
+    bookElement.appendChild(info);
+    bookElement.appendChild(buttons);
+
     booksContainer.appendChild(bookElement);
+
+    updateBookCount();
 }
 
 function deleteBook(book) {
     const id = book.getAttribute("data-id");
     library = library.filter((book) => id !== book.id);
     book.remove();
+    updateBookCount();
 }
 
 function displayLibrary() {
@@ -142,11 +157,17 @@ function displayLibrary() {
     });
 }
 
+function updateBookCount() {
+    bookCount.textContent = `${library.length} book${
+        library.length > 1 ? "s" : ""
+    } in your library`;
+}
+
 addBookToLibrary(
     "The Hobbit",
     "J.R.R. Tolkien",
     320,
-    false,
+    true,
     "https://live.staticflickr.com/2597/4014903394_b2f4f294b7_b.jpg"
 );
 addBookToLibrary(
@@ -155,6 +176,13 @@ addBookToLibrary(
     309,
     true,
     "https://live.staticflickr.com/3816/12008063406_431c61becc_z.jpg"
+);
+addBookToLibrary(
+    "Farenheit 451",
+    "Ray Bradbury",
+    256,
+    false,
+    "https://live.staticflickr.com/65535/50148581751_845cdaff6b_b.jpg"
 );
 
 displayLibrary();
