@@ -176,10 +176,10 @@ addBookToLibrary(
     "J.K. Rowling",
     309,
     true,
-    "https://live.staticflickr.com/3816/12008063406_431c61becc_z.jpg"
+    "https://live.staticflickr.com/8514/28640674850_527c97717e.jpg"
 );
 addBookToLibrary(
-    "Farenheit 451",
+    "Fahrenheit 451",
     "Ray Bradbury",
     256,
     false,
