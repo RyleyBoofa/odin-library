@@ -8,6 +8,19 @@
     padding: 0;
 }
 
+:root {
+    --font-small: clamp(0.6rem, 0.5rem + 0.5vw, 1rem);
+    --font-medium: clamp(1rem, 0.5rem + 1vw, 1.5rem);
+    --font-large: clamp(1.5rem, 1rem + 1vw, 2.5rem);
+    --font-xl: clamp(2rem, 1.5rem + 1vw, 3rem);
+    --color-aqua: #017371;
+    --color-white: #fff;
+    --color-grey-dark: #333;
+    --color-grey-medium: #666;
+    --color-shadow-dark: #0009;
+    --color-shadow-light: #0006;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
@@ -19,13 +32,22 @@ input {
 }
 
 button {
+    background-color: var(--color-aqua);
+    color: var(--color-white);
+    border: none;
+    border-radius: 0.25em;
     padding: 0.25em 0.5em;
+}
+
+i {
+    margin-right: 0.5em;
 }
 
 /* HEADER */
 
 .header {
-    border-bottom: 2px solid black;
+    font-size: var(--font-medium);
+    border-bottom: 2px solid var(--color-grey-medium);
     display: flex;
     justify-content: center;
     padding: 1em;
@@ -36,7 +58,19 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 75ch;
+}
+
+.page-title {
+    font-size: var(--font-xl);
+}
+
+.page-title i {
+    color: var(--color-aqua);
+}
+
+#new-book-button i {
+    font-size: 0.8em;
 }
 
 /* DIALOG */
@@ -58,6 +92,7 @@ button {
 /* LIBRARY */
 
 .library {
+    font-size: var(--font-medium);
     display: flex;
     justify-content: center;
     padding: 1em;
@@ -65,11 +100,16 @@ button {
 
 .library-container {
     flex: 1;
-    max-width: 1200px;
+    max-width: 75ch;
+}
+
+.library-heading {
+    font-size: var(--font-large);
 }
 
 .book-count {
-    margin: 1em 0;
+    color: var(--color-grey-dark);
+    margin: 0.5em 0;
 }
 
 .books-container {
@@ -80,15 +120,16 @@ button {
 }
 
 .book {
+    font-size: var(--font-small);
     border-radius: 1em;
-    box-shadow: 0px 0px 5px #003;
-    max-width: 320px;
+    box-shadow: 0px 0px 5px var(--color-shadow-dark);
+    width: 100%;
     padding: 1em;
 }
 
 .book-cover-art {
     border-radius: 0.5em;
-    box-shadow: 0px 0px 5px #003;
+    box-shadow: 0px 0px 5px var(--color-shadow-light);
     width: 100%;
     aspect-ratio: 2 / 3;
     overflow: hidden;
@@ -104,11 +145,17 @@ button {
     margin: 0.5em 0;
 }
 
+.book-title {
+    font-size: var(--font-medium);
+}
+
 .book-author {
+    color: var(--color-aqua);
     margin-left: 1em;
 }
 
 .book-info {
+    color: var(--color-grey-dark);
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.5em;
