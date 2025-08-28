@@ -1,5 +1,8 @@
 /* GLOBAL */
 
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+
 *,
 *::before,
 *::after {
@@ -9,11 +12,14 @@
 }
 
 :root {
-    --font-small: clamp(0.6rem, 0.5rem + 0.5vw, 1rem);
-    --font-medium: clamp(1rem, 0.5rem + 1vw, 1.5rem);
-    --font-large: clamp(1.5rem, 1rem + 1vw, 2.5rem);
-    --font-xl: clamp(2rem, 1.5rem + 1vw, 3rem);
+    --font-heading: "Merriweather", serif;
+    --font-body: "Inter", sans-serif;
+    --fs-small: clamp(0.6rem, 0.5rem + 0.5vw, 1rem);
+    --fs-medium: clamp(1rem, 0.5rem + 1vw, 1.5rem);
+    --fs-large: clamp(1.5rem, 1rem + 1vw, 2.5rem);
+    --fs-xl: clamp(2rem, 1.5rem + 1vw, 3rem);
     --color-aqua: #017371;
+    --color-aqua-dark: #016361;
     --color-white: #fff;
     --color-grey-dark: #333;
     --color-grey-medium: #666;
@@ -21,8 +27,19 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-heading), var(--font-body), serif, sans-serif;
     font-size: 20px;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-heading);
+}
+
+h1,
+h3 {
+    letter-spacing: 0.1em;
 }
 
 button,
@@ -42,12 +59,15 @@ button {
     color: var(--color-white);
     border: none;
     transform: scale(1);
-    transition: transform 0.1s ease;
+    transition: 0.1s ease;
 }
 
-button:hover,
-button:focus {
+button:hover {
     transform: scale(1.1);
+}
+
+button:active {
+    background-color: var(--color-aqua-dark);
 }
 
 i {
@@ -58,10 +78,11 @@ i {
     display: flex;
     justify-content: center;
     padding: 1em;
-    font-size: var(--font-medium);
+    font-size: var(--fs-medium);
 }
 
 .content {
+    font-family: var(--font-body);
     flex: 1;
     max-width: 75ch;
 }
@@ -83,7 +104,7 @@ i {
 }
 
 .page-title {
-    font-size: var(--font-xl);
+    font-size: var(--fs-xl);
     margin-right: auto;
 }
 
@@ -127,7 +148,7 @@ i {
 /* LIBRARY */
 
 .library-heading {
-    font-size: var(--font-large);
+    font-size: var(--fs-large);
 }
 
 .book-count {
@@ -143,7 +164,7 @@ i {
 }
 
 .book {
-    font-size: var(--font-small);
+    font-size: var(--fs-small);
     border-radius: 1em;
     width: clamp(200px, 100%, 400px);
     padding: 1em;
@@ -174,7 +195,7 @@ i {
 }
 
 .book-title {
-    font-size: var(--font-medium);
+    font-size: var(--fs-medium);
 }
 
 .book-author {
