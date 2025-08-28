@@ -26,16 +26,21 @@ body {
 }
 
 button,
-input {
+input,
+select {
     font: inherit;
+    border-radius: 0.25em;
+}
+
+button,
+input {
+    padding: 0.25em 0.5em;
 }
 
 button {
     background-color: var(--color-aqua);
     color: var(--color-white);
     border: none;
-    border-radius: 0.25em;
-    padding: 0.25em 0.5em;
     transform: scale(1);
     transition: transform 0.1s ease;
 }
@@ -93,6 +98,7 @@ i {
 /* DIALOG */
 
 .new-book-dialog {
+    border-radius: 0.25em;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -101,9 +107,21 @@ i {
     padding: 1em;
 }
 
-.new-book-dialog label,
-.new-book-dialog input {
-    width: 100%;
+.new-book-dialog form,
+.new-book-dialog div:not(.dialog-buttons) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+}
+
+.new-book-dialog .dialog-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.dialog-buttons button {
+    flex: 1;
 }
 
 /* LIBRARY */

@@ -32,9 +32,7 @@ confirmBtn.addEventListener("click", (e) => {
         newCover.value
     );
     if (newBook === null) {
-        alert(
-            "Failed to add new book, please ensure form is filled out correctly. See developer console for more info."
-        );
+        alert("Failed to add new book, please ensure that required fields are filled out.");
         return;
     }
     createNewBookElement(newBook);
