@@ -4,6 +4,7 @@ let library = []; // not const so that it can be filtered
 const booksContainer = document.querySelector(".books-container");
 const newBookBtn = document.querySelector("#new-book-button");
 const newBookDialog = document.querySelector(".new-book-dialog");
+const newBookForm = document.querySelector(".new-book-form");
 const confirmBtn = document.querySelector("#confirm");
 const newTitle = document.querySelector("#title");
 const newAuthor = document.querySelector("#author");
@@ -14,11 +15,7 @@ const bookCount = document.querySelector(".book-count");
 const noImgPath = "./assets/img/no-image.svg";
 
 newBookBtn.addEventListener("click", () => {
-    newTitle.value = "";
-    newAuthor.value = "";
-    newPages.value = "";
-    newRead.selectedIndex = 0;
-    newCover.value = "";
+    newBookForm.reset();
     newBookDialog.showModal();
 });
 
@@ -89,6 +86,9 @@ function createNewBookElement(book) {
     cover.classList.add("shadow");
     const img = document.createElement("img");
     img.setAttribute("src", book.cover !== "" ? book.cover : noImgPath);
+    img.onerror = () => {
+        img.setAttribute("src", noImgPath); // use no-image.svg if faulty URL provided
+    };
     img.setAttribute("alt", `${book.title} cover art`);
     cover.appendChild(img);
     bookElement.appendChild(cover);
@@ -160,7 +160,7 @@ function updateBookCount() {
     if (library.length === 1) {
         bookCount.textContent = "1 book in your library";
     } else {
-        bookCount.textContent = `${library.length} books in  your library`;
+        bookCount.textContent = `${library.length} books in your library`;
     }
 }
 

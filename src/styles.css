@@ -1,6 +1,5 @@
 /* GLOBAL */
 
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
 
 *,
@@ -27,7 +26,7 @@
 }
 
 body {
-    font-family: var(--font-heading), var(--font-body), serif, sans-serif;
+    font-family: var(--font-body), sans-serif;
     font-size: 20px;
 }
 
@@ -128,8 +127,8 @@ i {
     padding: 1em;
 }
 
-.new-book-dialog form,
-.new-book-dialog div:not(.dialog-buttons) {
+.new-book-form,
+.new-book-form div:not(.dialog-buttons) {
     display: flex;
     flex-direction: column;
     gap: 0.25em;
