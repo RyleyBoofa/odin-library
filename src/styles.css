@@ -17,8 +17,7 @@
     --color-white: #fff;
     --color-grey-dark: #333;
     --color-grey-medium: #666;
-    --color-shadow-dark: #0009;
-    --color-shadow-light: #0006;
+    --color-shadow: #0009;
 }
 
 body {
@@ -37,32 +36,50 @@ button {
     border: none;
     border-radius: 0.25em;
     padding: 0.25em 0.5em;
+    transform: scale(1);
+    transition: transform 0.1s ease;
+}
+
+button:hover,
+button:focus {
+    transform: scale(1.1);
 }
 
 i {
     margin-right: 0.5em;
 }
 
-/* HEADER */
-
-.header {
-    font-size: var(--font-medium);
-    border-bottom: 2px solid var(--color-grey-medium);
+.container {
     display: flex;
     justify-content: center;
     padding: 1em;
+    font-size: var(--font-medium);
 }
 
-.header-container {
+.content {
     flex: 1;
+    max-width: 75ch;
+}
+
+.shadow {
+    box-shadow: 0px 0px 5px var(--color-shadow);
+}
+
+/* HEADER */
+
+.header {
+    border-bottom: 2px solid var(--color-grey-medium);
+}
+
+.header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 75ch;
 }
 
 .page-title {
     font-size: var(--font-xl);
+    margin-right: auto;
 }
 
 .page-title i {
@@ -91,18 +108,6 @@ i {
 
 /* LIBRARY */
 
-.library {
-    font-size: var(--font-medium);
-    display: flex;
-    justify-content: center;
-    padding: 1em;
-}
-
-.library-container {
-    flex: 1;
-    max-width: 75ch;
-}
-
 .library-heading {
     font-size: var(--font-large);
 }
@@ -114,7 +119,7 @@ i {
 
 .books-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 25%, 300px), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     justify-items: center;
     gap: 1em;
 }
@@ -122,14 +127,19 @@ i {
 .book {
     font-size: var(--font-small);
     border-radius: 1em;
-    box-shadow: 0px 0px 5px var(--color-shadow-dark);
-    width: 100%;
+    width: clamp(200px, 100%, 400px);
     padding: 1em;
+    transform: scale(1);
+    transition: transform 0.1s ease;
+}
+
+.book:hover {
+    transform: scale(1.025);
+    box-shadow: 0px 0px 5px var(--color-aqua);
 }
 
 .book-cover-art {
     border-radius: 0.5em;
-    box-shadow: 0px 0px 5px var(--color-shadow-light);
     width: 100%;
     aspect-ratio: 2 / 3;
     overflow: hidden;

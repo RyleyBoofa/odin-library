@@ -11,6 +11,7 @@ const newPages = document.querySelector("#pages");
 const newRead = document.querySelector("#read");
 const newCover = document.querySelector("#cover");
 const bookCount = document.querySelector(".book-count");
+const noImgPath = "./assets/img/no-image.svg";
 
 newBookBtn.addEventListener("click", () => {
     newTitle.value = "";
@@ -82,16 +83,16 @@ function addBookToLibrary(title, author, pages, read, cover) {
 function createNewBookElement(book) {
     const bookElement = document.createElement("div");
     bookElement.classList.add("book");
+    bookElement.classList.add("shadow");
     bookElement.setAttribute("data-id", book.id);
 
     const cover = document.createElement("div");
     cover.classList.add("book-cover-art");
-    if (book.cover !== undefined) {
-        const img = document.createElement("img");
-        img.setAttribute("src", book.cover);
-        img.setAttribute("alt", `${book.title} cover art`);
-        cover.appendChild(img);
-    }
+    cover.classList.add("shadow");
+    const img = document.createElement("img");
+    img.setAttribute("src", book.cover !== "" ? book.cover : noImgPath);
+    img.setAttribute("alt", `${book.title} cover art`);
+    cover.appendChild(img);
     bookElement.appendChild(cover);
 
     const heading = document.createElement("div");
@@ -158,9 +159,11 @@ function displayLibrary() {
 }
 
 function updateBookCount() {
-    bookCount.textContent = `${library.length} book${
-        library.length > 1 ? "s" : ""
-    } in your library`;
+    if (library.length === 1) {
+        bookCount.textContent = "1 book in your library";
+    } else {
+        bookCount.textContent = `${library.length} books in  your library`;
+    }
 }
 
 addBookToLibrary(
