@@ -36,20 +36,11 @@ h3 {
     font-family: var(--font-heading);
 }
 
-h1,
-h3 {
-    letter-spacing: 0.1em;
-}
-
 button,
 input,
 select {
     font: inherit;
     border-radius: 0.25em;
-}
-
-button,
-input {
     padding: 0.25em 0.5em;
 }
 
@@ -88,6 +79,11 @@ i {
 
 .shadow {
     box-shadow: 0px 0px 5px var(--color-shadow);
+}
+
+.page-title,
+.book-title {
+    letter-spacing: 0.1em;
 }
 
 /* HEADER */
