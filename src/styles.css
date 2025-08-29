@@ -166,6 +166,9 @@ i {
     font-size: var(--fs-small);
     border-radius: 1em;
     width: clamp(200px, 100%, 400px);
+    aspect-ratio: 1 / 2;
+    display: flex;
+    flex-direction: column;
     padding: 1em;
     transform: scale(1);
     transition: transform 0.1s ease;
@@ -195,6 +198,8 @@ i {
 
 .book-title {
     font-size: var(--fs-medium);
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 .book-author {
@@ -204,6 +209,7 @@ i {
 
 .book-info {
     color: var(--color-grey-dark);
+    margin-top: auto;
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.5em;
