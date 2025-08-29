@@ -161,7 +161,7 @@ i {
 .book {
     font-size: var(--fs-small);
     border-radius: 1em;
-    width: clamp(200px, 100%, 400px);
+    width: clamp(200px, 100%, 350px);
     aspect-ratio: 1 / 2;
     display: flex;
     flex-direction: column;
