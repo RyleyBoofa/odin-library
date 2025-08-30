@@ -150,7 +150,12 @@ i {
     color: var(--color-grey-dark);
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin: 0.5em 0;
+}
+
+.collection-details * {
+    white-space: nowrap;
 }
 
 .books-container {
