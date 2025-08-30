@@ -146,8 +146,10 @@ i {
     font-size: var(--fs-large);
 }
 
-.book-count {
+.collection-details {
     color: var(--color-grey-dark);
+    display: flex;
+    justify-content: space-between;
     margin: 0.5em 0;
 }
 

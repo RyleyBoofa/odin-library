@@ -1,6 +1,7 @@
 // The Odin Project - Project: Library
 
 let library = []; // not const so that it can be filtered
+let editing = undefined; // ID of the book being edited - undefined if new book
 const booksContainer = document.querySelector(".books-container");
 const newBookBtn = document.querySelector("#new-book-button");
 const newBookDialog = document.querySelector(".new-book-dialog");
@@ -15,12 +16,50 @@ const bookCount = document.querySelector(".book-count");
 const noImgPath = "./assets/img/no-image.svg";
 
 newBookBtn.addEventListener("click", () => {
-    newBookForm.reset();
-    newBookDialog.showModal();
+    editing = undefined;
+    showModalDialog();
 });
 
 confirmBtn.addEventListener("click", (e) => {
     e.preventDefault();
+    if (editing !== undefined) {
+        editExistingBook();
+    } else {
+        createNewBook();
+    }
+    newBookDialog.close();
+});
+
+function showModalDialog(book) {
+    if (book === undefined) {
+        newBookForm.reset();
+    } else {
+        newTitle.value = book.title;
+        newAuthor.value = book.author;
+        newPages.value = String(book.pages);
+        newRead.selectedIndex = book.read ? 1 : 0;
+        newCover.value = book.cover;
+    }
+    newBookDialog.showModal();
+}
+
+function editExistingBook() {
+    const bookObj = library.find((book) => book.id === editing);
+    bookObj.title = newTitle.value;
+    bookObj.author = newAuthor.value;
+    bookObj.pages = Number(newPages.value);
+    bookObj.read = newRead.value === "yes" ? true : false;
+    bookObj.cover = newCover.value;
+
+    const bookElem = document.querySelector(`[data-id="${bookObj.id}"]`);
+    bookElem.querySelector(".book-title").textContent = bookObj.title;
+    bookElem.querySelector(".book-author").textContent = bookObj.author;
+    bookElem.querySelector(".book-pages").textContent = `${bookObj.pages} pages`;
+    bookElem.querySelector(".book-read").textContent = bookObj.read ? "Read" : "Not read";
+    bookElem.querySelector(".book-cover-art img").setAttribute("src", bookObj.cover);
+}
+
+function createNewBook() {
     const newBook = addBookToLibrary(
         newTitle.value,
         newAuthor.value,
@@ -33,8 +72,7 @@ confirmBtn.addEventListener("click", (e) => {
         return;
     }
     createNewBookElement(newBook);
-    newBookDialog.close();
-});
+}
 
 function Book(title, author, pages, read, id, cover) {
     if (!new.target) {
@@ -138,6 +176,13 @@ function createNewBookElement(book) {
     bookElement.appendChild(info);
     bookElement.appendChild(buttons);
 
+    // allow users to edit book by clicking on it
+    bookElement.addEventListener("click", (e) => {
+        if (e.target.tagName === "BUTTON") return; // don't open modal if button clicked
+        editing = book.id;
+        showModalDialog(book);
+    });
+
     booksContainer.appendChild(bookElement);
 
     updateBookCount();
@@ -145,8 +190,8 @@ function createNewBookElement(book) {
 
 function deleteBook(book) {
     const id = book.getAttribute("data-id");
-    library = library.filter((book) => id !== book.id);
-    book.remove();
+    library = library.filter((book) => id !== book.id); // remove object from array
+    book.remove(); // remove element from page
     updateBookCount();
 }
 
