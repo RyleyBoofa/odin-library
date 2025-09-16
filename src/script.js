@@ -1,5 +1,23 @@
 // The Odin Project - Project: Library
 
+class Book {
+    constructor(title, author, pages, read, id, cover) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.id = id;
+        this.cover = cover;
+    }
+
+    toggleRead() {
+        this.read = !this.read;
+        const bookEl = document.querySelector(`[data-id="${this.id}"]`);
+        const readEl = bookEl.querySelector(".book-read");
+        readEl.textContent = this.read ? "Read" : "Not read";
+    }
+}
+
 let library = []; // not const so that it can be filtered
 let editing = undefined; // ID of the book being edited - undefined if new book
 const booksContainer = document.querySelector(".books-container");
@@ -73,25 +91,6 @@ function createNewBook() {
     }
     createNewBookElement(newBook);
 }
-
-function Book(title, author, pages, read, id, cover) {
-    if (!new.target) {
-        throw Error("Book constructor must be called with the 'new' keyword.");
-    }
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.id = id;
-    this.cover = cover;
-}
-
-Book.prototype.toggleRead = function () {
-    this.read = !this.read;
-    const book = document.querySelector(`[data-id="${this.id}"]`);
-    const read = book.querySelector(".book-read");
-    read.textContent = this.read ? "Read" : "Not read";
-};
 
 function addBookToLibrary(title, author, pages, read, cover) {
     if (
